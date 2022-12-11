@@ -1,0 +1,5 @@
+void stampa_lista(lista l){
+  for(; l != NULL; l = l->next){
+    cout<< l->value <<endl;
+  }
+}
