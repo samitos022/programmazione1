@@ -106,7 +106,7 @@ int main(int argc, char ** argv) {
 
 // Add hereafter the definition of estrai
 
-list * estrai_3(const tree * albero, list * numeri){
+list * estrai_3(const tree * albero, list * &numeri){
     if(albero == NULL){
       return numeri;
     }else{
@@ -121,7 +121,7 @@ list * estrai_3(const tree * albero, list * numeri){
     }
 }
 
-list * estrai_aux(const tree * albero, list * numeri){
+list * estrai_aux(const tree * albero, list *& numeri){
     if(albero == NULL){
       return numeri;
     }else{
