@@ -1,0 +1,65 @@
+#include<iostream>
+#include<fstream>
+using namespace std;
+
+const int LENGHT = 256;
+
+int main(int argc, char * argv[]){
+
+  if(argc != 3){
+    cerr << "Usage: ./a.exe <file> <file>"<<endl;
+    exit(1);
+  }
+
+  fstream in, out;
+  in.open(argv[1], ios::in);
+  out.open(argv[2], ios::out);
+
+  if(in.fail()){
+    cerr << "Errore nell'apertura del file di in";
+    exit(1);
+  }
+
+  if(out.fail()){
+    cerr << "Errore nell'apertura del file di out";
+    exit(1);
+  }
+
+  char buffer[LENGHT];
+  int cont;
+  int max = 0;
+  char M[LENGHT];
+
+  while(!in.eof()){
+
+    in.getline(buffer, LENGHT);
+
+    for(int i = 0; buffer[i]!='\0'; i++){
+      cont = i;
+    }
+    
+    if(cont >= max){
+      for(int i = 0; buffer[i]!='\0'; i++){
+        M[i] = buffer[i];
+      }
+      M[cont + 1] = '\0'; 
+      max = cont;
+    }
+
+    out << cont << endl;
+
+  }
+
+  for(int i = 0; i < max; i++){
+    out << M[i];
+  }
+
+  out << endl << "Dimensione riga piu' lunga: " << cont;
+
+  in.close();
+  out.close();
+
+
+  return 0;
+  
+}
