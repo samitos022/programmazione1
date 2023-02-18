@@ -1,0 +1,39 @@
+#include<iostream>
+#include<fstream>
+using namespace std;
+
+
+int main(int argc, char * argv[]){
+
+  if(argc != 3){
+      cerr << "Usage: ./a.exe <file> <file>"<<endl;
+      exit(1);
+  }
+
+  fstream in, out;
+  in.open(argv[1], ios::in);
+  out.open(argv[2], ios::out);
+
+  if(in.fail()){
+    cerr << "Errore nell'apertura del file di in";
+    exit(1);
+  }
+
+  if(out.fail()){
+    cerr << "Errore nell'apertura del file di out";
+    exit(1);
+  }
+
+
+
+
+
+
+
+  in.close();
+  out.close();
+
+
+  return 0;
+  
+}
