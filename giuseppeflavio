@@ -33,7 +33,6 @@ int find_leader(int num, int m){
     coda_enqueue(i);
   }
 
-
   // Trovo il leader
   while(coda_first(leader)){
     if((cont % m) == 0){
