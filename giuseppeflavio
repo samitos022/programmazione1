@@ -1,0 +1,56 @@
+#include<iostream>
+#include "coda.h"
+using namespace std;
+
+int find_leader(int num, int m);
+
+int main(){
+
+  int p, M, vinc;
+
+  cout << "Numero di partecipanti: ";
+  cin >> p;
+
+  cout << "Ogni quante persone c'e' l'eliminazione? ";
+  cin >> M;
+
+  vinc = find_leader(p, M);
+
+  cout << "Il leader e' " << vinc;
+
+  return 0;
+}
+
+
+
+int find_leader(int num, int m){
+
+  int leader, cont = 1;
+  coda_init();
+
+  // Inserisco i partecipanti
+  for(int i = 1; i<=num; i++){
+    coda_enqueue(i);
+  }
+
+
+  // Trovo il leader
+  while(coda_first(leader)){
+    if((cont % m) == 0){
+      coda_first(leader);
+      cout << leader << endl;
+      coda_dequeue();
+    }else{
+      coda_first(leader);
+      coda_dequeue();
+      coda_enqueue(leader);
+    }
+    cont++;
+    //cout << "Situazione coda: " << endl;
+    //coda_print();
+  }
+
+  coda_deinit();
+
+  return leader;
+}
