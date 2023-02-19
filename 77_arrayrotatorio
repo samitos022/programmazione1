@@ -21,15 +21,15 @@ int main(int argc, char * argv[]){
 
   char * array = new char[dim + 1];
   array[dim] = '\0';
-
+  
   cout << "Dim: " << dim << endl;
 
   for(int i = 0; i < numero; i++){
-    array[i + (dim - numero)] = argv[1][i];
+    array[i] = argv[1][dim - numero + i];
   }
 
-  for(int i = 0; i < (dim - numero); i++){
-    array[i] = argv[1][numero + i];
+  for(int i = 0; i < dim - numero; i++){
+    array[numero + i] = argv[1][i];
   }
   
   for(int i = 0; array[i] != '\0'; i++){
