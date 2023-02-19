@@ -1,9 +1,6 @@
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
-using namespace std;
-
-//crea albero, inserisci elementi nell'albero, occhio a MAXVALUE e MAXSIZE
 
 #define MAXVALUE 100
 #define MAXSIZE 100
@@ -42,7 +39,7 @@ tree * crea_tree(const int num) {
 void print_tree(const tree * root){
 		if (root != NULL) {
 				print_tree(root->right);
-				cout << " " << root->info;
+				std::cout << " " << root->info;
 				print_tree(root->left);
   }
 }
@@ -66,22 +63,21 @@ void delete_list(list * &l) {
 
 void print_list(const list * l) {
   if (l != NULL) {
-    cout << " " << l->info;
+    std::cout << " " << l->info;
     print_list(l->next);
   }
   else
-    cout << endl;
+    std::cout << std::endl;
 }
 
 // NON MODIFICARE IL CODICE SOPRA
 
-
 // Add hereafter the declaration of estrai
-void estrai(const tree * albero, list * &n1, list * &n2);
+void estrai(const tree * root, list * & l1, list * & l2);
 // Add here above the declaration of estrai
 
+// NON MODIFICARE IL MAIN
 int main(int argc, char ** argv) {
-  // NON MODIFICARE IL MAIN
   srand(unsigned(time(0)));
 		//
 		// Commentare la linea seguente per avere comportamento
@@ -89,67 +85,36 @@ int main(int argc, char ** argv) {
 		//
 		srand(0);
 		tree * root = crea_tree(rand()%MAXSIZE);
-		cout << "Initial tree content: ";
-		print_tree(root); cout << endl;
+		std::cout << "Initial tree content: ";
+		print_tree(root); std::cout << std::endl;
   list * l1;
   list * l2;
   estrai(root, l1, l2);
   delete_tree(root);
-		cout << "L1 =";
+		std::cout << "L1 =";
   print_list(l1);
-		cout << "L2 =";
+		std::cout << "L2 =";
   print_list(l2);
   delete_list(l1);
   delete_list(l2);
-  // NON MODIFICARE IL MAIN
 }
+// NON MODIFICARE IL MAIN
 
 // Add hereafter the definition of estrai
-
-list * estrai_3(const tree * albero, list * &numeri){
-    if(albero == NULL){
-      return numeri;
-    }else{
-      
-      numeri = estrai_3(albero->right, numeri);
-      if(albero->info % 3 == 0){
-        numeri = new list{albero->info, numeri};
-      }
-      numeri = estrai_3(albero->left, numeri);
-
-      return numeri;
+void estrai_aux(const tree * root, list * & l1, list * & l2) {
+  if (NULL != root) {
+    estrai_aux(root->right, l1, l2);
+    if ((root->info % 2) == 0) {
+      l1 = new list {root->info, l1};
+    } else {
+      l2 = new list {root->info, l2};
     }
+    estrai_aux(root->left, l1, l2);
+  }
 }
 
-list * estrai_aux(const tree * albero, list *& numeri){
-    if(albero == NULL){
-      return numeri;
-    }else{
-      numeri = estrai_aux(albero->right, numeri);
-      if(albero->info % 3 != 0){
-        numeri = new list{albero->info, numeri};
-      }
-      numeri = estrai_aux(albero->left, numeri);
-
-      return numeri;
-    }
-}
-
-
-
-void estrai(const tree * albero, list * &n1, list * &n2){
-    n1 = NULL;
-    n2 = NULL;
-    if(albero == NULL){
-      cout << "Errore: albero vuoto" <<endl;
-    }
-    n1 = estrai_3(albero, n1);
-    n2 = estrai_aux(albero, n2);
-    if(n1 == NULL){
-      cout << "Errore: non ci sono numeri multipli di 3" <<endl;
-    }
-    if(n2 == NULL){
-      cout << "Errore: non ci sono numeri che non sono multipli di 3" <<endl;
-    }
+void estrai(const tree * root, list * & l1, list * & l2) {
+  l1 = l2 = NULL;
+  estrai_aux(root, l1, l2);
 }
 // Add here above the definition of estrai
