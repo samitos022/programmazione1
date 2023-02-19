@@ -1,0 +1,83 @@
+#include<iostream>
+#include"coda.h"
+using namespace std;
+
+char winner(string senate);
+
+int main(){
+  string senate;
+  char winners;
+
+  cout << "Inserisci il senato: ";
+  cin >> senate;
+
+  winners = winner(senate);
+
+  cout << "The winner is " << winners;
+
+  return 0;
+}
+
+char winner(string senate){
+
+  char first, tmp;
+  int cont = 0, num;
+  bool vincitore = false;
+
+  coda_init();
+
+  for(int i = 0; senate[i]!='\0'; i++){
+    coda_enqueue(senate[i]);
+    num = i + 1;
+  }
+
+  coda_first(tmp);
+
+  cout << "Situazione coda: " << endl;
+  coda_print();
+
+  while(coda_first(first)){
+
+    //controllo vincitori
+    if(cont == num + 1){
+      coda_first(tmp);
+      cont = 0;
+      num --;
+
+      cout << "Situazione coda: " << endl;
+      coda_print();
+
+      vincitore = true;
+      for(int i = 0; i<num; i++){
+        coda_first(first);
+        coda_enqueue(first);
+        if(tmp != first){
+          vincitore = false;
+        }
+        coda_dequeue();
+      }
+
+      if(vincitore == true){
+        return tmp;
+      }
+    }
+
+    //eliminazione
+    coda_first(first);
+
+    if(first == tmp || tmp == 'S'){
+      coda_dequeue();
+      coda_enqueue(first);
+    }
+      
+    if(first != tmp && tmp != 'S'){
+      cout << "Eliminato: " << first << endl;
+      coda_dequeue();
+      tmp = 'S';
+    }
+
+    cont++;
+  }
+  
+  coda_deinit();
+}
