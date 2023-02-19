@@ -1,8 +1,5 @@
 #include<iostream>
-#include<fstream>
 using namespace std;
-
-int const lenght = 256;
 
 int main(int argc, char * argv[]){
 
@@ -21,7 +18,7 @@ int main(int argc, char * argv[]){
 
   char * array = new char[dim + 1];
   array[dim] = '\0';
-  
+
   cout << "Dim: " << dim << endl;
 
   for(int i = 0; i < numero; i++){
