@@ -58,7 +58,7 @@ char winner(string senate){
       }
 
       if(vincitore == true){
-        return tmp;
+        break;
       }
     }
 
@@ -80,4 +80,7 @@ char winner(string senate){
   }
   
   coda_deinit();
+
+  return tmp;
+
 }
