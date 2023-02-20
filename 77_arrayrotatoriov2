@@ -1,0 +1,120 @@
+#include<iostream>
+#include<fstream>
+using namespace std;
+
+int const lenght = 256;
+
+char * shiftDx(int numero, int const dim, char buffer[]);
+
+char * shiftSx(int numero, int const dim, char buffer[]);
+
+int main(int argc, char * argv[]){
+
+    if(argc != 3){
+        cerr << "Usage: ./a.exe <file> <file>"<<endl;
+        exit(1);
+    }
+
+    fstream in, out;
+    in.open(argv[1], ios::in);
+    out.open(argv[2], ios::out);
+
+    if(in.fail()){
+        cerr << "Errore nell'apertura del file di in";
+        exit(1);
+    }
+
+    if(out.fail()){
+        cerr << "Errore nell'apertura del file di out";
+        exit(1);
+    }
+
+    char buffer[lenght];
+    int numero, dim;
+
+    cout << "Di quanto lo vuoi shiftare? ";
+    cin >> numero;
+
+    while(in >> buffer){
+
+        for(int i = 0; buffer[i] != '\0'; i++){
+            dim = i + 1;
+        }
+
+        char * arr = new char[dim + 1];
+        arr[dim] = '\0';
+
+        arr = shiftDx(numero, dim, buffer);
+
+        for(int i = 0; arr[i] != '\0'; i++){
+            out << arr[i];
+        }
+
+        out << endl;
+
+        arr = shiftSx(numero, dim, buffer);
+
+        for(int i = 0; arr[i] != '\0'; i++){
+            out << arr[i];
+        }
+
+        out << endl;
+
+    }
+
+
+    in.close();
+    out.close();
+
+
+    return 0;
+
+}
+
+
+char * shiftDx(int numero, int const dim, char buffer[]){
+
+	char * array = new char[dim + 1];
+  	array[dim] = '\0';
+
+	if(numero > dim){
+		numero = numero % dim; 
+	}
+
+	for(int i = 0; i < numero; i++){
+		array[i] = buffer[dim - numero + i];
+	}
+
+	for(int i = 0; i < dim - numero; i++){
+		array[numero + i] = buffer[i];
+	}
+
+    cout << "Shiftato verso dx:" << endl;
+
+	return array;
+
+}
+
+
+char * shiftSx(int numero, int const dim, char buffer[]){
+
+	char * array = new char[dim + 1];
+  	array[dim] = '\0';
+
+	if(numero > dim){
+		numero = numero % dim; 
+	}
+
+	for(int i = 0; i < (dim - numero); i++){
+		array[i] = buffer[numero + i];
+	}
+
+	for(int i = 0; i < numero; i++){
+		array[(dim - numero) + i] = buffer[i];
+	}
+
+    cout << "Shiftato verso sx:" << endl;
+
+	return array;
+
+}
