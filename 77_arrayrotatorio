@@ -1,6 +1,12 @@
 #include<iostream>
 using namespace std;
 
+
+void shiftDx(int numero, int const dim, char * argv[]);
+
+void shiftSx(int numero, int const dim, char * argv[]);
+
+
 int main(int argc, char * argv[]){
 
   if(argc != 3){
@@ -16,27 +22,65 @@ int main(int argc, char * argv[]){
     dim = i + 1;
   }
 
-  char * array = new char[dim + 1];
-  array[dim] = '\0';
+  shiftDx(numero, dim, argv);
 
-  cout << "Dim: " << dim << endl;
-
-  if(numero > dim){
-	numero = numero % dim; 
-  }
-
-  for(int i = 0; i < numero; i++){
-    array[i] = argv[1][dim - numero + i];
-  }
-
-  for(int i = 0; i < dim - numero; i++){
-    array[numero + i] = argv[1][i];
-  }
-  
-  for(int i = 0; array[i] != '\0'; i++){
-    cout << array[i];
-  }
+  shiftSx(numero, dim, argv);
 
   return 0;
   
+}
+
+void shiftDx(int numero, int const dim, char * argv[]){
+
+	char * array = new char[dim + 1];
+  	array[dim] = '\0';
+
+	if(numero > dim){
+		numero = numero % dim; 
+	}
+
+	for(int i = 0; i < numero; i++){
+		array[i] = argv[1][dim - numero + i];
+	}
+
+	for(int i = 0; i < dim - numero; i++){
+		array[numero + i] = argv[1][i];
+	}
+
+	cout << "Shift verso Dx: ";
+
+	for(int i = 0; array[i] != '\0'; i++){
+		cout << array[i];
+	}
+
+	cout << endl;
+
+}
+
+
+void shiftSx(int numero, int const dim, char * argv[]){
+
+	char * array = new char[dim + 1];
+  	array[dim] = '\0';
+
+	if(numero > dim){
+		numero = numero % dim; 
+	}
+
+	for(int i = 0; i < (dim - numero); i++){
+		array[i] = argv[1][numero + i];
+	}
+
+	for(int i = 0; i < numero; i++){
+		array[(dim - numero) + i] = argv[1][i];
+	}
+
+	cout << "Shift verso Sx: ";
+
+	for(int i = 0; array[i] != '\0'; i++){
+		cout << array[i];
+	}
+
+	cout << endl;
+
 }
