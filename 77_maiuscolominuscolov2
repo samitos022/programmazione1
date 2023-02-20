@@ -1,0 +1,57 @@
+#include<iostream>
+#include<fstream>
+using namespace std;
+
+int const lenght = 256;
+
+int main(int argc, char * argv[]){
+
+  if(argc != 3){
+    cerr << "Usage: ./a.exe <file> <file>"<<endl;
+    exit(1);
+  }
+
+  fstream in, out;
+  in.open(argv[1], ios::in);
+  out.open(argv[2], ios::out);
+
+  if(in.fail()){
+    cerr << "Errore nell'apertura del file di in";
+    exit(1);
+  }
+
+  if(out.fail()){
+    cerr << "Errore nell'apertura del file di out";
+    exit(1);
+  }
+
+  char buffer[256];
+
+  while(in >> buffer){
+
+    for(int i = 0; buffer[i] != '\0'; i++){
+      if(buffer[i]>='a' && buffer[i]<='z'){
+        buffer[i] += ('A' - 'a');
+      }else{
+        if(buffer[i]>='A' && buffer[i]<='Z'){
+          buffer[i] -= ('A' - 'a');
+        }
+      }
+    }
+    
+    for(int i = 0; buffer[i] != '\0'; i++){
+      out << buffer[i];
+    }
+
+    out << endl;
+
+  }
+
+
+  in.close();
+  out.close();
+
+
+  return 0;
+  
+}
