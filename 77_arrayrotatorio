@@ -21,6 +21,10 @@ int main(int argc, char * argv[]){
 
   cout << "Dim: " << dim << endl;
 
+  if(numero > dim){
+	numero = numero % dim; 
+  }
+
   for(int i = 0; i < numero; i++){
     array[i] = argv[1][dim - numero + i];
   }
